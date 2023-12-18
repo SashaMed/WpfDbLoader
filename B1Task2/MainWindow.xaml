@@ -1,0 +1,69 @@
+﻿<Window x:Class="B1Task2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:B1Task2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Строка ввода и кнопка импорта -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <TextBox Width="200" Name="FilePathTextBox" Margin="5"/>
+            <Button Content="Импорт" Margin="5" Click="ImportButtonClick"/>
+        </StackPanel>
+
+        <!-- Таблица для списка импортированных файлов -->
+        <DataGrid Grid.Row="1" x:Name="FilesDataGrid"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="FilesDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ИМЯ ФАЙЛА" Binding="{Binding FileName}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="ДАТА ДОБАВЛЕНИЯ" Binding="{Binding Date}"  IsReadOnly="True" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <DataGrid x:Name="HeaderDataGrid" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" Height="99" Margin="80,72,0,0" Grid.RowSpan="2" VerticalAlignment="Top" IsEnabled="False" Foreground="White" BorderBrush="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ВХОДЯЩЕЕ САЛЬДО" Width="2*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="ОБОРОТЫ" Width="2*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="ИСХОДЯЩЕЕ САЛЬДО" Width="2*" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="2" Margin="30" >
+            <TextBlock Text="ВХОДЯЩЕЕ САЛЬДО" Width="200" Height="20" TextAlignment="Center" Panel.ZIndex="1"/>
+            <TextBlock Text="ОБОРОТЫ" Width="200" Height="20" TextAlignment="Center"/>
+            <TextBlock Text="ИСХОДЯЩЕЕ САЛЬДО" Width="200" Height="20" TextAlignment="Center"/>
+        </StackPanel>-->
+
+        <!-- Таблица для отображения данных -->
+        <DataGrid x:Name="ExcelDataDataGrid" Grid.Row="3" AutoGenerateColumns="False" CanUserAddRows="False" >
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Б/сч" Binding="{Binding AccountNumber}" IsReadOnly="True" Width="30">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                <!--<DataGridTextColumn Header="Б/сч" Binding="{Binding AccountNumber}" IsReadOnly="True" />-->
+                <DataGridTextColumn Header="Актив" Binding="{Binding InitialActiveBalance}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Пассив" Binding="{Binding InitialPassiveBalance}"  IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Дебет" Binding="{Binding DebitTurnover}"  IsReadOnly="True" Width="*" />
+                <DataGridTextColumn Header="Кредит" Binding="{Binding CreditTurnover}" IsReadOnly="True" Width="*" />
+                <DataGridTextColumn Header="Актив" Binding="{Binding FinalActiveBalance}" IsReadOnly="True" Width="*" />
+                <DataGridTextColumn Header="Пассив" Binding="{Binding FinalPassiveBalance}" IsReadOnly="True" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
